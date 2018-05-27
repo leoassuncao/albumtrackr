@@ -160,8 +160,13 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
 
         contentValues.put(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_ID, clickSearchArtistId);
         contentValues.put(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_NAME, searchArtistName);
-        contentValues.put(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_STYLE, searchArtistType);
 
+        if(searchArtistType != null) {
+            contentValues.put(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_STYLE, searchArtistType);
+        } else {
+            this.searchArtistType = "No Type";
+            contentValues.put(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_STYLE, searchArtistType);
+        }
         if (searchArtistCountry != null) {
             contentValues.put(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_COUNTRY, searchArtistCountry);
         } else {

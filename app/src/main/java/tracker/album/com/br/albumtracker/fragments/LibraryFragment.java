@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,7 +62,6 @@ public class LibraryFragment extends Fragment implements SharedPreferences.OnSha
                              Bundle savedInstanceState) {
         this.mRootView = inflater.inflate(R.layout.fragment_library, container, false);
         return this.mRootView;
-
 
 
     }
@@ -144,7 +144,13 @@ public class LibraryFragment extends Fragment implements SharedPreferences.OnSha
     @Override
     public void onResume() {
         super.onResume();
-        mFollowedAdapter.notifyDataSetChanged();
+        loadFollowedArtists();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        loadFollowedArtists();
     }
 
     @Override

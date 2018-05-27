@@ -50,6 +50,7 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
 
     public FollowedAdapter() {
 
+
     }
 
     public void changeCursor(Cursor newCursor) {
@@ -60,6 +61,7 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
         if (newCursor != null) {
             this.notifyDataSetChanged();
         }
+
     }
 
     public class FollowedAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
