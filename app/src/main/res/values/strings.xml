@@ -1,0 +1,88 @@
+<resources>
+    <string name="app_name">Album Trackr</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="action_about">About</string>
+
+    <string name="welcome">Welcome</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="signup">Register</string>
+    <string name="back">Back</string>
+
+    <string name="user">User</string>
+    <string name="confirmpass">Confirm password</string>
+
+    <string name="rememberpass">Forgot password</string>
+    <string name="sendmail">Send e-mail</string>
+
+    <string name="account">Account</string>
+    <string name="notifications">Notifications</string>
+
+    <string name="user_nick">leoassuncao</string>
+    <string name="user_name">Leonardo Assunção</string>
+
+    <string name="artists">Followed Artist</string>
+
+    <string name="feedback_name">Your name</string>
+    <string name="feedback_email">Your e-mail</string>
+    <string name="feedback_type">Feedback type</string>
+    <string name="feedback_body">Tell us your feedback</string>
+    <string name="feedback_button">Send</string>
+
+    <string name="feedbacktype1">Feedback type</string>
+    <string name="feedbacktype2">Concern</string>
+    <string name="feedbacktype3">Bug</string>
+    <string name="feedbacktype4">Sugestion</string>
+
+    <string name="feedback">Feedback</string>
+    <string name="translate">Translate</string>
+    <string name="website">Site</string>
+
+    <string name="notificate">Notify</string>
+    <string name="notificate_summary">Display notification</string>
+    <string name="vibrate">Vibrate</string>
+    <string name="vibrate_summary">Vibrate on incoming notification</string>
+    <string name="led">Phone LED</string>
+    <string name="led_summary">Flash LED on incoming notification</string>
+    <string name="sound">Sound</string>
+    <string name="sound_summary">Emit sound on incoming notification</string>
+
+    <string name="login_act">Login</string>
+    <string name="artist_profile_act">Artist Profile</string>
+    <string name="register_act">Registro</string>
+    <string name="settings_act">Settings</string>
+    <string name="feedback_act">Feedback</string>
+    <string name="about_act">About</string>
+    <string name="search_act">Search</string>
+    <string name="forgot_pass_act">Forgot Password</string>
+    <string name="account_act">Account</string>
+    <string name="notification_act">Notifications</string>
+    <string name="country">Country</string>
+    <string name="choose_country">Pick your country</string>
+    <string name="general_notifications">General</string>
+    <string name="notification">Notification</string>
+    <string name="album">Album</string>
+    <string name="album_summary">Show information about new Albuns</string>
+    <string name="ep">EP</string>
+    <string name="ep_summary">Show information about new EP</string>
+    <string name="single">Single</string>
+    <string name="single_summary">Show information about new Single</string>
+    <string name="other">Other</string>
+    <string name="other_summary">Show information about new other new releases</string>
+
+    <string name="about_description">Albumtrackr is an app design for Music Lovers. Keep track of your favorites artists\' latest releases by following them on AlbumTrackr</string>
+
+    <string name="country_brazil">Brazil</string>
+    <string name="country_argentina">Argentina</string>
+    <string name="country_usa">United States of America</string>
+
+
+    <string name="pref_user_nickname">username</string>
+    <string name="pref_user_country">country</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Search...</string>
+</resources>

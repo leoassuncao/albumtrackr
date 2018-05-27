@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="countries_array">
+        <item>@string/country_brazil</item>
+        <item>@string/country_argentina</item>
+        <item>@string/country_usa</item>
+    </string-array>
+    <string-array name="values_country">
+        <item>@drawable/acdc</item>
+        <item>@drawable/blind</item>
+        <item>@drawable/bls</item>
+    </string-array>
+</resources>

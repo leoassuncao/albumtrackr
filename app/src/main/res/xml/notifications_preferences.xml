@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/general_notifications"
+        android:key="settings_category"
+       >
+
+    <SwitchPreference android:title="@string/notificate"
+        android:defaultValue="true"
+        android:summary="@string/notificate_summary"
+        android:key="applicationNotification" />
+
+    <SwitchPreference android:title="@string/vibrate"
+        android:defaultValue="true"
+        android:summary="@string/vibrate_summary"
+        android:key="applicationVibration" />
+
+    <SwitchPreference android:title="@string/led"
+        android:defaultValue="true"
+        android:summary="@string/led_summary"
+        android:key="applicationLed" />
+
+    <SwitchPreference android:title="@string/sound"
+        android:defaultValue="true"
+        android:summary="@string/sound_summary"
+        android:key="applicationSound" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/notification"
+        android:key="notification_category"
+        >
+
+    <SwitchPreference android:title="@string/album"
+        android:defaultValue="true"
+        android:summary="@string/album_summary"
+        android:key="albumNotification" />
+
+    <SwitchPreference android:title="@string/ep"
+        android:defaultValue="true"
+        android:summary="@string/ep_summary"
+        android:key="epNotification" />
+
+    <SwitchPreference android:title="Single"
+        android:defaultValue="true"
+        android:summary="@string/single_summary"
+        android:key="singleNotification" />
+
+    <SwitchPreference android:title="Other"
+        android:defaultValue="true"
+        android:summary="@string/other_summary"
+        android:key="otherNotification"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

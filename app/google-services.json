@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "91858353519",
+    "firebase_url": "https://albumtrackr.firebaseio.com",
+    "project_id": "albumtrackr",
+    "storage_bucket": "albumtrackr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:91858353519:android:916c524af13d8fa2",
+        "android_client_info": {
+          "package_name": "tracker.album.com.br.albumtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "91858353519-vn8poqts132ftgkulptfhj0082bsbovn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFzKtCrGY5Hk6-6PjQsV-0wD6GwGW5kFI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

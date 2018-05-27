@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:title="@string/user"
+        android:key="@string/pref_user_nickname"
+        android:defaultValue="@string/user_nick" >
+
+    </EditTextPreference>
+
+    <ListPreference
+        android:title="@string/country"
+        android:key="@string/pref_user_country"
+        android:defaultValue="1"
+        android:entries="@array/countries_array"
+        android:entryValues="@array/values_country" />
+
+</PreferenceScreen>
