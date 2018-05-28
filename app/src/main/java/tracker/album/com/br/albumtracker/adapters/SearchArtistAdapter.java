@@ -62,6 +62,10 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
         holder.search_artist_name.setText(this.searchArtists.get(position).getName());
         holder.search_artist_type.setText(this.searchArtists.get(position).getType());
 
+        searchArtistCountry = this.searchArtists.get(position).getCountry();
+
+        Log.v("user", "teste" + this.searchArtists.get(position).getCountry());
+
         searchArtistId = this.searchArtists.get(position).getId();
         if (!checkIfArtistIsInDb(searchArtistId)) {
             Log.v("teste", "fora");
@@ -175,8 +179,6 @@ public class SearchArtistAdapter extends RecyclerView.Adapter<SearchArtistAdapte
 
         context.getContentResolver().insert(ArtistsContract.ArtistsEntry.CONTENT_URI, contentValues);
     }
-
-
 
     private void deleteArtistFromDb(String clickSearchArtistId) {
         Log.v("teste1", "artistid: " + clickSearchArtistId);

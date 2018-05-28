@@ -15,7 +15,7 @@ public class ArtistsService {
 
     private static ServiceApi retrofit;
     private static final String API_URL = "http://musicbrainz.org/ws/2/";
-    private static final String API_URL_IMAGE= "http://coverartarchive.org/release/";
+    private static final String API_URL_IMAGE= "http://ws.audioscrobbler.com/2.0/";
 
     public static  ServiceApi getApi( ) {
 

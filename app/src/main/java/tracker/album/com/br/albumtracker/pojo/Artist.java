@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,15 +19,18 @@ public class Artist implements Parcelable{
     private String type;
     private String country;
 
+
     public Artist()  {
 
     }
+
     public Artist(Parcel in) {
         id = in.readString();
         name = in.readString();
         country = in.readString();
         type = in.readString();
     }
+
 
     public List<Artist> getArtist() {
         return artist;
@@ -70,6 +74,7 @@ public class Artist implements Parcelable{
 
 
 
+
     @Override
     public int describeContents() {
         return 0;
@@ -81,10 +86,13 @@ public class Artist implements Parcelable{
         dest.writeString(name);
         dest.writeString(country);
         dest.writeString(type);
+
     }
 
+
+
     @SuppressWarnings("unused")
-    public static final Creator<Artist> CREATOR = new Creator<Artist>() {
+    public static final Parcelable.Creator<Artist> CREATOR = new Parcelable.Creator<Artist>() {
         @Override
         public Artist createFromParcel(Parcel in) {
             return new Artist(in);

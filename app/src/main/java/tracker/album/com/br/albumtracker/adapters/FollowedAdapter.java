@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.gson.Gson;
 import com.neovisionaries.i18n.CountryCode;
 import com.squareup.picasso.Picasso;
 
@@ -31,6 +32,8 @@ import tracker.album.com.br.albumtracker.data.ArtistsContract;
 import tracker.album.com.br.albumtracker.network.ArtistsService;
 import tracker.album.com.br.albumtracker.network.ServiceApi;
 import tracker.album.com.br.albumtracker.pojo.Artist;
+import tracker.album.com.br.albumtracker.pojo.ArtistImage;
+import tracker.album.com.br.albumtracker.pojo.ArtistsLastFm;
 import tracker.album.com.br.albumtracker.pojo.CoverArt;
 import tracker.album.com.br.albumtracker.pojo.Images;
 
@@ -44,7 +47,7 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
     private TextView artist_name;
     private TextView artist_country;
     private TextView music_style;
-    private  TextView last_album;
+    private TextView last_album;
     private TextView artist_type;
     public String id;
 
@@ -72,8 +75,8 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
 
         public FollowedAdapterViewHolder(View itemView) {
             super(itemView);
-            ic_artist_type =(ImageView) itemView.findViewById(R.id.library_ic_artist_type);
-            artist_photo =(ImageView) itemView.findViewById(R.id.library_artist_photo);
+            ic_artist_type = (ImageView) itemView.findViewById(R.id.library_ic_artist_type);
+            artist_photo = (ImageView) itemView.findViewById(R.id.library_artist_photo);
             itemView.setOnClickListener(this);
         }
 
@@ -84,7 +87,7 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
             cursor.moveToPosition(getAdapterPosition());
             Artist artist = getArtistFromCursor();
             intent.putExtra("artistDetails", artist);
-            Toast.makeText(view.getContext(),artist.getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(view.getContext(), artist.getName(), Toast.LENGTH_SHORT).show();
             view.getContext().startActivity(intent);
         }
 
@@ -105,11 +108,11 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
     public FollowedAdapterViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.library_artists_card_view, parent, false);
-        artist_name =(TextView) view.findViewById(R.id.library_artist_name);
-        artist_country =(TextView) view.findViewById(R.id.library_artist_country);
-        music_style =(TextView) view.findViewById(R.id.library_music_style);
-        last_album =(TextView) view.findViewById(R.id.library_last_album);
-        artist_type =(TextView) view.findViewById(R.id.library_artist_type);
+        artist_name = (TextView) view.findViewById(R.id.library_artist_name);
+        artist_country = (TextView) view.findViewById(R.id.library_artist_country);
+        music_style = (TextView) view.findViewById(R.id.library_music_style);
+        last_album = (TextView) view.findViewById(R.id.library_last_album);
+        artist_type = (TextView) view.findViewById(R.id.library_artist_type);
 
         FollowedAdapterViewHolder viewHolder = new FollowedAdapterViewHolder(view);
         return viewHolder;
@@ -121,7 +124,7 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
         artist_name.setText(cursor.getString(cursor.getColumnIndex(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_NAME)));
         artist_type.setText(cursor.getString(cursor.getColumnIndex(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_STYLE)));
         String ic_type = cursor.getString(cursor.getColumnIndex(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_STYLE));
-        id =  cursor.getString(cursor.getColumnIndex(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_ID));
+        id = cursor.getString(cursor.getColumnIndex(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_ID));
 
         CountryCode cc = CountryCode.getByCode(cursor.getString(cursor.getColumnIndex(ArtistsContract.ArtistsEntry.COLUMN_ARTIST_COUNTRY)));
         artist_country.setText(cc.getName());
@@ -136,17 +139,17 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
                     .load((R.drawable.ic_artist_type_single))
                     .placeholder(R.drawable.ic_artist_type_single)
                     .into(holder.ic_artist_type);
-        } else if  (ic_type.equals("Orchestra")) {
+        } else if (ic_type.equals("Orchestra")) {
             Picasso.with(holder.ic_artist_type.getContext())
                     .load((R.drawable.ic_guitar_acoustic))
                     .placeholder(R.drawable.ic_guitar_acoustic)
                     .into(holder.ic_artist_type);
-        } else if  (ic_type.equals("Choir")) {
+        } else if (ic_type.equals("Choir")) {
             Picasso.with(holder.ic_artist_type.getContext())
                     .load((R.drawable.ic_artist_type_single))
                     .placeholder(R.drawable.ic_artist_type_single)
                     .into(holder.ic_artist_type);
-        } else if  (ic_type.equals("Character")) {
+        } else if (ic_type.equals("Character")) {
             Picasso.with(holder.ic_artist_type.getContext())
                     .load((R.drawable.ic_artist_type_single))
                     .placeholder(R.drawable.ic_artist_type_single)
@@ -158,10 +161,11 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
                     .into(holder.ic_artist_type);
         }
 
-
+        loadImages();
 
         Picasso.with(holder.artist_photo.getContext())
-                .load(ArtistsService.getApiImage() + id  )
+                //http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=bfcc6d75-a6a5-4bc6-8282-47aec8531818&api_key=966f26ded204772262fdb5bf66767c4b&format=json
+                .load(ArtistsService.getApiImage() + id)
                 .placeholder(R.drawable.acdc)
                 .into(holder.artist_photo);
 
@@ -181,5 +185,28 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
     }
 
 
+    private void loadImages() {
+
+        ServiceApi service = ArtistsService.getApiImage();
+        final Call<ArtistsLastFm> artist = service.getArtistImage();
+
+        artist.enqueue(new Callback<ArtistsLastFm>() {
+            @Override
+            public void onResponse(Call<ArtistsLastFm> call, Response<ArtistsLastFm> response) {
+                Integer statusCode = response.code();
+                Log.v("status code: ", statusCode.toString());
+                final ArtistsLastFm artists = response.body();
+                ArrayList<ArtistImage> img = new ArrayList<>();
+                img = artists.getImage();
+                Log.v("testem2", "artists: " + artists);
+
+            }
+
+            @Override
+            public void onFailure(Call<ArtistsLastFm> call, Throwable t) {
+                Log.v("http fail: ", t.getMessage());
+            }
+        });
+    }
 }
 
