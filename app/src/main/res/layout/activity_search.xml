@@ -45,6 +45,21 @@
         android:overScrollMode="never"
         />
 
+    <LinearLayout
+        android:id="@+id/layout_not_found"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:layout_below="@+id/layout">
+
+             <TextView
+                android:id="@+id/msg_if_null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="PLACHEOLDER OR NOW"
+              />
+    </LinearLayout>
+
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"

@@ -43,6 +43,22 @@
         android:overScrollMode="never"
         />
 
+        <LinearLayout
+            android:id="@+id/artist_no_albuns"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"
+            android:layout_below="@id/artist_name"
+          >
+
+                 <TextView
+                     android:id="@+id/noalbum"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="aqui"
+                   />
+        </LinearLayout>
+
     </LinearLayout>
 
             <android.support.v7.widget.Toolbar

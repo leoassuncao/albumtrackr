@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -63,6 +64,8 @@ public class ArtistProfileActivity extends AppCompatActivity {
     private String artistId;
     private ImageView artistHeaderImg;
 
+    private LinearLayout mNoAlbum;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,7 @@ public class ArtistProfileActivity extends AppCompatActivity {
         release_date = (TextView) findViewById(R.id.release_date);
         release_type = (TextView) findViewById(R.id.release_type);
         artistHeaderImg = (ImageView) findViewById(R.id.header_pic_artist);
+        mNoAlbum = (LinearLayout) findViewById(R.id.artist_no_albuns);
         setSupportActionBar(mToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -204,10 +208,13 @@ public class ArtistProfileActivity extends AppCompatActivity {
                 final ArtistsReleases artists = response.body();
                 ArrayList<ReleaseGroup> albuns = new ArrayList<>();
                 albuns = artists.getReleaseGroups();
-                Log.v("teste", "" + albuns.get(0).getFirstReleaseDate());
                 //TODO sort recycler view by date
-                mAdapter = new ReleasedAlbunsAdapter(albuns);
-                mRecyclerView.setAdapter(mAdapter);
+                if (!(albuns.isEmpty())) {
+                    mAdapter = new ReleasedAlbunsAdapter(albuns);
+                    mRecyclerView.setAdapter(mAdapter);
+                } else {
+                    mNoAlbum.setVisibility(VISIBLE);
+                }
                             }
 
             @Override

@@ -22,12 +22,15 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,6 +64,8 @@ public class SearchActivity extends AppCompatActivity {
         private ImageButton mButtonFollow;
         private RecyclerView mRecyclerView;
         private SearchArtistAdapter mAdapter;
+        private LinearLayout mLayoutNotFound;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +78,14 @@ public class SearchActivity extends AppCompatActivity {
         mArtistName = (TextView) findViewById(R.id.fd_artist_name);
         mAlbumType = (TextView) findViewById(R.id.search_artist_type);
         mButtonFollow = (ImageButton) findViewById(R.id.favorite_button);
+        mLayoutNotFound = (LinearLayout) findViewById(R.id.layout_not_found);
         AdRequest adRequest = new AdRequest.Builder()
                 .build();
         mAdView.loadAd(adRequest);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        loadArtist("");
 
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -109,11 +116,24 @@ public class SearchActivity extends AppCompatActivity {
 
                 final SearchArtists artists = response.body();
                 Log.v("teste", "artist:" + artists);
-                ArrayList<Artist> artist =  new ArrayList<>();
-                artist = artists.getArtists();
+                ArrayList<Artist> artist = new ArrayList<>();
 
-                mAdapter = new SearchArtistAdapter(artist, getApplicationContext());
-                mRecyclerView.setAdapter(mAdapter); }
+                if (artists != null) {
+                    artist = artists.getArtists();
+                    if(!(artist.isEmpty())) {
+                        mLayoutNotFound.setVisibility(View.INVISIBLE);
+                        mAdapter = new SearchArtistAdapter(artist, getApplicationContext());
+                        mRecyclerView.setAdapter(mAdapter);
+                        mRecyclerView.setVisibility(VISIBLE);
+                    } else{
+                        mLayoutNotFound.setVisibility(VISIBLE);
+                        mRecyclerView.setVisibility(View.INVISIBLE);
+                    }
+                } else {
+                    mLayoutNotFound.setVisibility(VISIBLE);
+                    mRecyclerView.setVisibility(View.INVISIBLE);
+                }
+            }
 
 
             @Override
