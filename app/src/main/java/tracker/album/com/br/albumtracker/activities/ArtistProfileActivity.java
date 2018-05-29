@@ -118,6 +118,30 @@ public class ArtistProfileActivity extends AppCompatActivity {
         });
 
         initViews();
+
+        ServiceApi service = ArtistsService.getApiImage();
+        final Call<ArtistsLastFm> artist1 = service.getArtistImage("artist.getinfo", artistId ,"966f26ded204772262fdb5bf66767c4b", "json" );
+
+        artist1.enqueue(new Callback<ArtistsLastFm>() {
+            @Override
+            public void onResponse(Call<ArtistsLastFm> call, Response<ArtistsLastFm> response) {
+                Integer statusCode = response.code();
+                Log.v("status code: ", statusCode.toString());
+                final ArtistsLastFm artists = response.body();
+                ArrayList<ArtistImage> images = new ArrayList<>();
+                images = artists.getArtist().getImage();
+
+                Picasso.with(artistHeaderImg.getContext())
+                        .load(images.get(3).getText())
+                        .placeholder(R.drawable.acdc)
+                        .into(artistHeaderImg);
+            }
+
+            @Override
+            public void onFailure(Call<ArtistsLastFm> call, Throwable t) {
+                Log.v("http fail: ", t.getMessage());
+            }
+        });
     }
 
     private void changeFabOnUnfollow() {

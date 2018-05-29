@@ -116,12 +116,12 @@ public class ReleasedAlbunsAdapter extends RecyclerView.Adapter<ReleasedAlbunsAd
                     final AlbumLastFm album = response.body();
                     ArrayList<AlbumImage> images = new ArrayList<>();
 
-                    images = album.getArtist().getImage();
+                        images = album.getArtist().getImage();
+                        Picasso.with(holder.album_photo.getContext())
+                                .load(images.get(3).getText())
+                                .placeholder(R.drawable.acdc)
+                                .into(holder.album_photo);
 
-                    Picasso.with(holder.album_photo.getContext())
-                            .load(images.get(3).getText())
-                            .placeholder(R.drawable.acdc)
-                            .into(holder.album_photo);
                 }
 
                 @Override
