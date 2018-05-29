@@ -3,7 +3,7 @@ package tracker.album.com.br.albumtracker.pojo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by leonardo.filho on 28/05/2018.
@@ -11,25 +11,25 @@ import java.util.ArrayList;
 
 public class ArtistsLastFm  implements Parcelable{
 
-    private ArrayList<ArtistImage> image = null;
+   private ImageLastFm artist;
 
-
-    public ArrayList<ArtistImage> getImage() {
-        return image;
+    public ImageLastFm getArtist() {
+        return artist;
     }
 
-    public void setImage(ArrayList<ArtistImage> image) {
-        this.image = image;
+    public void setArtist(ImageLastFm artist) {
+        this.artist = artist;
+    }
+    public ArtistsLastFm()  {
+
     }
 
-    protected ArtistsLastFm(Parcel in) {
-        if (in.readByte() == 0x01) {
-            image = new ArrayList<>();
-            in.readList(image, ReleaseGroup.class.getClassLoader());
-        } else {
-            image = null;
-        }
+    public ArtistsLastFm(Parcel in) {
+
     }
+
+
+
 
     @Override
     public int describeContents() {
@@ -39,24 +39,22 @@ public class ArtistsLastFm  implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-        if (image == null) {
-            dest.writeByte((byte) (0x00));
-        } else {
-            dest.writeByte((byte) (0x01));
-            dest.writeList(image);
-        }
+
+
     }
 
+
+
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<ArtistImage> CREATOR = new Parcelable.Creator<ArtistImage>() {
+    public static final Parcelable.Creator<ArtistsLastFm> CREATOR = new Parcelable.Creator<ArtistsLastFm>() {
         @Override
-        public ArtistImage createFromParcel(Parcel in) {
-            return new ArtistImage(in);
+        public ArtistsLastFm createFromParcel(Parcel in) {
+            return new ArtistsLastFm(in);
         }
 
         @Override
-        public ArtistImage[] newArray(int size) {
-            return new ArtistImage[size];
+        public ArtistsLastFm[] newArray(int size) {
+            return new ArtistsLastFm[size];
         }
     };
 }

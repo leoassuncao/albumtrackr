@@ -11,6 +11,7 @@ import tracker.album.com.br.albumtracker.pojo.ArtistImage;
 import tracker.album.com.br.albumtracker.pojo.ArtistsLastFm;
 import tracker.album.com.br.albumtracker.pojo.ArtistsReleases;
 import tracker.album.com.br.albumtracker.pojo.CoverArt;
+import tracker.album.com.br.albumtracker.pojo.ImageLastFm;
 import tracker.album.com.br.albumtracker.pojo.Images;
 import tracker.album.com.br.albumtracker.pojo.SearchArtists;
 
@@ -49,12 +50,15 @@ public interface ServiceApi {
     Call<Images> getAlbumImage(@Path("id") String id);
 
    // ARTISTS IMAGE FROM LASTFM
-    // http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=bfcc6d75-a6a5-4bc6-8282-47aec8531818&api_key=966f26ded204772262fdb5bf66767c4b&format=json
     //?method=artist.getinfo&mbid=bfcc6d75-a6a5-4bc6-8282-47aec8531818&api_key=966f26ded204772262fdb5bf66767c4b&format=json
-    @GET("?method=artist.getinfo&mbid=bfcc6d75-a6a5-4bc6-8282-47aec8531818&api_key=966f26ded204772262fdb5bf66767c4b&format=json")
-    Call<ArtistsLastFm> getArtistImage();
+    @GET("2.0/")
+    Call<ArtistsLastFm> getArtistImage(
+            @Query("method") String method,
+            @Query("mbid") String mbid,
+            @Query("api_key") String apiKey,
+            @Query("format") String fmt);
 }
 
-// url to get cover art  http://coverartarchive.org/release-group/14c5e04e-c2eb-3437-b3d3-9dd42c297e09
+
 
 

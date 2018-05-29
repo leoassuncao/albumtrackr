@@ -35,6 +35,7 @@ import tracker.album.com.br.albumtracker.pojo.Artist;
 import tracker.album.com.br.albumtracker.pojo.ArtistImage;
 import tracker.album.com.br.albumtracker.pojo.ArtistsLastFm;
 import tracker.album.com.br.albumtracker.pojo.CoverArt;
+import tracker.album.com.br.albumtracker.pojo.ImageLastFm;
 import tracker.album.com.br.albumtracker.pojo.Images;
 
 /**
@@ -161,13 +162,30 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
                     .into(holder.ic_artist_type);
         }
 
-        loadImages();
+        ServiceApi service = ArtistsService.getApiImage();
+        final Call<ArtistsLastFm> artist = service.getArtistImage("artist.getinfo", id ,"966f26ded204772262fdb5bf66767c4b", "json" );
 
-        Picasso.with(holder.artist_photo.getContext())
-                //http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&mbid=bfcc6d75-a6a5-4bc6-8282-47aec8531818&api_key=966f26ded204772262fdb5bf66767c4b&format=json
-                .load(ArtistsService.getApiImage() + id)
-                .placeholder(R.drawable.acdc)
-                .into(holder.artist_photo);
+        artist.enqueue(new Callback<ArtistsLastFm>() {
+            @Override
+            public void onResponse(Call<ArtistsLastFm> call, Response<ArtistsLastFm> response) {
+                Integer statusCode = response.code();
+                Log.v("status code: ", statusCode.toString());
+                final ArtistsLastFm artists = response.body();
+                ArrayList<ArtistImage> images = new ArrayList<>();
+                images = artists.getArtist().getImage();
+
+                Picasso.with(holder.artist_photo.getContext())
+                        .load(images.get(3).getText())
+                        .placeholder(R.drawable.acdc)
+                        .into(holder.artist_photo);
+            }
+
+            @Override
+            public void onFailure(Call<ArtistsLastFm> call, Throwable t) {
+                Log.v("http fail: ", t.getMessage());
+            }
+        });
+
 
     }
 
@@ -185,28 +203,5 @@ public class FollowedAdapter  extends RecyclerView.Adapter<FollowedAdapter.Follo
     }
 
 
-    private void loadImages() {
-
-        ServiceApi service = ArtistsService.getApiImage();
-        final Call<ArtistsLastFm> artist = service.getArtistImage();
-
-        artist.enqueue(new Callback<ArtistsLastFm>() {
-            @Override
-            public void onResponse(Call<ArtistsLastFm> call, Response<ArtistsLastFm> response) {
-                Integer statusCode = response.code();
-                Log.v("status code: ", statusCode.toString());
-                final ArtistsLastFm artists = response.body();
-                ArrayList<ArtistImage> img = new ArrayList<>();
-                img = artists.getImage();
-                Log.v("testem2", "artists: " + artists);
-
-            }
-
-            @Override
-            public void onFailure(Call<ArtistsLastFm> call, Throwable t) {
-                Log.v("http fail: ", t.getMessage());
-            }
-        });
-    }
 }
 
