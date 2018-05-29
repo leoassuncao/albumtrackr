@@ -5,14 +5,10 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import retrofit2.http.Url;
+import tracker.album.com.br.albumtracker.pojo.AlbumLastFm;
 import tracker.album.com.br.albumtracker.pojo.Artist;
-import tracker.album.com.br.albumtracker.pojo.ArtistImage;
 import tracker.album.com.br.albumtracker.pojo.ArtistsLastFm;
 import tracker.album.com.br.albumtracker.pojo.ArtistsReleases;
-import tracker.album.com.br.albumtracker.pojo.CoverArt;
-import tracker.album.com.br.albumtracker.pojo.ImageLastFm;
-import tracker.album.com.br.albumtracker.pojo.Images;
 import tracker.album.com.br.albumtracker.pojo.SearchArtists;
 
 /**
@@ -40,22 +36,27 @@ public interface ServiceApi {
     Call<ArtistsReleases> getReleases ();
 
     //GET ALBUNS BY ID - WORKING
-    @GET("release-group?")
+    @GET("release?")
     Call<ArtistsReleases> getReleaseAlbuns(
             @Query("artist") String artistId,
             @Query("fmt") String fmt);
 
-    //GET ALBUNS IMAGE
-    @GET("{id}")
-    Call<Images> getAlbumImage(@Path("id") String id);
 
-   // ARTISTS IMAGE FROM LASTFM
-    //?method=artist.getinfo&mbid=bfcc6d75-a6a5-4bc6-8282-47aec8531818&api_key=966f26ded204772262fdb5bf66767c4b&format=json
+   // ARTISTS IMAGE FROM LASTFM - WORKING
     @GET("2.0/")
     Call<ArtistsLastFm> getArtistImage(
             @Query("method") String method,
             @Query("mbid") String mbid,
             @Query("api_key") String apiKey,
+            @Query("format") String fmt);
+
+    //ALBUM IMAGES FROM LASTFM
+    //2.0/?method=album.getinfo&api_key=966f26ded204772262fdb5bf66767c4b&mbid=078f2236-685f-4659-a5cf-c50e412445ec&format=json
+    @GET("2.0/")
+    Call<AlbumLastFm> getAlbumImage(
+            @Query("method") String method,
+            @Query("api_key") String apiKey,
+            @Query("mbid") String mbid,
             @Query("format") String fmt);
 }
 

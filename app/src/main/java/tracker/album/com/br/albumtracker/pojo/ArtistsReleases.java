@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ArtistsReleases implements Parcelable {
 
-    @SerializedName("release-groups")
+    @SerializedName("releases")
     private ArrayList<ReleaseGroup> releaseGroups = null;
 
     public ArrayList<ReleaseGroup> getReleaseGroups() {

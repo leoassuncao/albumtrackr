@@ -10,10 +10,10 @@ import java.text.SimpleDateFormat;
 public class ReleaseGroup implements Parcelable{
 
     private String id;
-    @SerializedName("first-release-date")
+    @SerializedName("date")
     private String firstReleaseDate;
     private String title;
-    @SerializedName("primary-type")
+    @SerializedName("status")
     private String primaryType;
 
     public String getId() {

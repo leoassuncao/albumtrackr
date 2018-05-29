@@ -41,6 +41,8 @@ import tracker.album.com.br.albumtracker.adapters.ReleasedAlbunsAdapter;
 import tracker.album.com.br.albumtracker.data.ArtistsContract;
 import tracker.album.com.br.albumtracker.network.ArtistsService;
 import tracker.album.com.br.albumtracker.network.ServiceApi;
+import tracker.album.com.br.albumtracker.pojo.AlbumImage;
+import tracker.album.com.br.albumtracker.pojo.AlbumLastFm;
 import tracker.album.com.br.albumtracker.pojo.Artist;
 import tracker.album.com.br.albumtracker.pojo.ArtistImage;
 import tracker.album.com.br.albumtracker.pojo.ArtistsLastFm;
@@ -90,7 +92,6 @@ public class ArtistProfileActivity extends AppCompatActivity {
         final Artist artist = extras.getParcelable("artistDetails");
         mArtist_name.setText(artist.getName());
         artistId = artist.getId();
-        loadArtistImage(artistId);
         Log.v("teste", "fora do banco" + artist.getType());
 
         mFab = (FloatingActionButton) findViewById(R.id.fab);
@@ -228,29 +229,4 @@ public class ArtistProfileActivity extends AppCompatActivity {
 
     }
 
-    public void loadArtistImage(String artistId) {
-        ServiceApi service = ArtistsService.getApiImage();
-        final Call<ArtistsLastFm> artist = service.getArtistImage("artist.getinfo", artistId ,"966f26ded204772262fdb5bf66767c4b", "json" );
-
-        artist.enqueue(new Callback<ArtistsLastFm>() {
-            @Override
-            public void onResponse(Call<ArtistsLastFm> call, Response<ArtistsLastFm> response) {
-                Integer statusCode = response.code();
-                Log.v("status code: ", statusCode.toString());
-                final ArtistsLastFm artists = response.body();
-                ArrayList<ArtistImage> images = new ArrayList<>();
-                images = artists.getArtist().getImage();
-
-                Picasso.with(artistHeaderImg.getContext())
-                        .load(images.get(3).getText())
-                        .placeholder(R.drawable.acdc)
-                        .into(artistHeaderImg);
-            }
-
-            @Override
-            public void onFailure(Call<ArtistsLastFm> call, Throwable t) {
-                Log.v("http fail: ", t.getMessage());
-            }
-        });
-    }
 }

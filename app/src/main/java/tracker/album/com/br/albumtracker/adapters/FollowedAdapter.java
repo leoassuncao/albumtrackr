@@ -2,8 +2,6 @@ package tracker.album.com.br.albumtracker.adapters;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,11 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.google.gson.Gson;
 import com.neovisionaries.i18n.CountryCode;
 import com.squareup.picasso.Picasso;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -34,9 +29,6 @@ import tracker.album.com.br.albumtracker.network.ServiceApi;
 import tracker.album.com.br.albumtracker.pojo.Artist;
 import tracker.album.com.br.albumtracker.pojo.ArtistImage;
 import tracker.album.com.br.albumtracker.pojo.ArtistsLastFm;
-import tracker.album.com.br.albumtracker.pojo.CoverArt;
-import tracker.album.com.br.albumtracker.pojo.ImageLastFm;
-import tracker.album.com.br.albumtracker.pojo.Images;
 
 /**
  * Created by leonardo.filho on 16/05/2018.

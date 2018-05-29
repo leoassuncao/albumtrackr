@@ -16,10 +16,16 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import tracker.album.com.br.albumtracker.data.ArtistsContract;
 import tracker.album.com.br.albumtracker.handlers.ReleasedAlbunsList;
 import tracker.album.com.br.albumtracker.R;
 import tracker.album.com.br.albumtracker.network.ArtistsService;
+import tracker.album.com.br.albumtracker.network.ServiceApi;
+import tracker.album.com.br.albumtracker.pojo.AlbumImage;
+import tracker.album.com.br.albumtracker.pojo.AlbumLastFm;
 import tracker.album.com.br.albumtracker.pojo.Artist;
 import tracker.album.com.br.albumtracker.pojo.ReleaseGroup;
 
@@ -33,7 +39,7 @@ public class ReleasedAlbunsAdapter extends RecyclerView.Adapter<ReleasedAlbunsAd
     private String albumName;
     private String releaseDate;
     private String releaseType;
-    private String artistId;
+    private String albumId;
 
     public ReleasedAlbunsAdapter() {}
 
@@ -42,6 +48,7 @@ public class ReleasedAlbunsAdapter extends RecyclerView.Adapter<ReleasedAlbunsAd
         albumName = releaseGroups.get(0).getTitle();
         releaseDate = releaseGroups.get(0).getFirstReleaseDate();
         releaseType = releaseGroups.get(0).getPrimaryType();
+        albumId = releaseGroups.get(0).getId();
         notifyDataSetChanged();
     }
 
@@ -60,37 +67,69 @@ public class ReleasedAlbunsAdapter extends RecyclerView.Adapter<ReleasedAlbunsAd
         holder.release_date.setText(this.releaseGroups.get(position).getFirstReleaseDate());
         holder.release_type.setText(this.releaseGroups.get(position).getPrimaryType());
         String ic_type = this.releaseGroups.get(position).getPrimaryType();
-
-        if (ic_type.equals("Album")) {
+        if(ic_type == null){
             Picasso.with(holder.ic_release_type.getContext())
                     .load((R.drawable.release_type_album))
                     .placeholder(R.drawable.release_type_album)
                     .into(holder.ic_release_type);
-        } else if (ic_type.equals("Single")) {
-            Picasso.with(holder.ic_release_type.getContext())
-                    .load((R.drawable.release_type_single))
-                    .placeholder(R.drawable.release_type_single)
-                    .into(holder.ic_release_type);
-        } else if (ic_type.equals("EP")) {
-            Picasso.with(holder.ic_release_type.getContext())
-                    .load((R.drawable.release_type_ep))
-                    .placeholder(R.drawable.release_type_ep)
-                    .into(holder.ic_release_type);
-        } else{
-            Picasso.with(holder.ic_release_type.getContext())
-                    .load((R.drawable.release_type_other))
-                    .placeholder(R.drawable.release_type_other)
-                    .into(holder.ic_release_type);
+        }else {
+
+            if (ic_type.equals("Album")) {
+                Picasso.with(holder.ic_release_type.getContext())
+                        .load((R.drawable.release_type_album))
+                        .placeholder(R.drawable.release_type_album)
+                        .into(holder.ic_release_type);
+            } else if (ic_type.equals("Single")) {
+                Picasso.with(holder.ic_release_type.getContext())
+                        .load((R.drawable.release_type_single))
+                        .placeholder(R.drawable.release_type_single)
+                        .into(holder.ic_release_type);
+            } else if (ic_type.equals("EP")) {
+                Picasso.with(holder.ic_release_type.getContext())
+                        .load((R.drawable.release_type_ep))
+                        .placeholder(R.drawable.release_type_ep)
+                        .into(holder.ic_release_type);
+            } else {
+                Picasso.with(holder.ic_release_type.getContext())
+                        .load((R.drawable.release_type_other))
+                        .placeholder(R.drawable.release_type_other)
+                        .into(holder.ic_release_type);
+            }
         }
 
 
-        Picasso.with(holder.album_photo.getContext())
-       // http://coverartarchive.org/release/76df3287-6cda-33eb-8e9a-044b5e15ffdd/829521842.jpg
-        .load("http://coverartarchive.org/release/" + "76df3287-6cda-33eb-8e9a-044b5e15ffdd" + "/" + "829521842" + ".jpg" )
-               // .load(ArtistsService.getApiImage() + id + "/" + this.releaseGroups.get(position).getId() )
-                .placeholder(R.drawable.acdc)
-                .into(holder.album_photo);
+        albumId = this.releaseGroups.get(position).getId();
+        if(albumId == null) {
+            Picasso.with(holder.album_photo.getContext())
+                    .load(R.drawable.acdc)
+                    .placeholder(R.drawable.acdc)
+                    .into(holder.album_photo);
+        } else {
+            ServiceApi service = ArtistsService.getApiImage();
+            final Call<AlbumLastFm> artist = service.getAlbumImage("album.getinfo", "966f26ded204772262fdb5bf66767c4b", albumId, "json");
 
+            artist.enqueue(new Callback<AlbumLastFm>() {
+                @Override
+                public void onResponse(Call<AlbumLastFm> call, Response<AlbumLastFm> response) {
+                    Integer statusCode = response.code();
+                    Log.v("status code: ", statusCode.toString());
+                    final AlbumLastFm album = response.body();
+                    ArrayList<AlbumImage> images = new ArrayList<>();
+
+                    images = album.getArtist().getImage();
+
+                    Picasso.with(holder.album_photo.getContext())
+                            .load(images.get(3).getText())
+                            .placeholder(R.drawable.acdc)
+                            .into(holder.album_photo);
+                }
+
+                @Override
+                public void onFailure(Call<AlbumLastFm> call, Throwable t) {
+                    Log.v("http fail: ", t.getMessage());
+                }
+            });
+        }
 
     }
 
