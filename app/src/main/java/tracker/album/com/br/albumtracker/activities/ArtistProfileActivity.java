@@ -1,14 +1,10 @@
 package tracker.album.com.br.albumtracker.activities;
 
-import android.app.Activity;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.database.Cursor;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,26 +19,15 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import tracker.album.com.br.albumtracker.adapters.FollowedAdapter;
 import tracker.album.com.br.albumtracker.adapters.ReleasedAlbunsAdapter;
 import tracker.album.com.br.albumtracker.data.ArtistsContract;
 import tracker.album.com.br.albumtracker.network.ArtistsService;
 import tracker.album.com.br.albumtracker.network.ServiceApi;
-import tracker.album.com.br.albumtracker.pojo.AlbumImage;
-import tracker.album.com.br.albumtracker.pojo.AlbumLastFm;
 import tracker.album.com.br.albumtracker.pojo.Artist;
 import tracker.album.com.br.albumtracker.pojo.ArtistImage;
 import tracker.album.com.br.albumtracker.pojo.ArtistsLastFm;
@@ -108,6 +93,7 @@ public class ArtistProfileActivity extends AppCompatActivity {
                 if (!checkIfArtistIsInDb(artistId)) {
                     changeFabOnFollow();
                     saveArtistInDb(artist);
+                    saveArtistInDb2(artist);
                     Log.v("teste", "adicionado no db");
                 } else {
                     changeFabOnUnfollow();
@@ -208,6 +194,16 @@ public class ArtistProfileActivity extends AppCompatActivity {
         }
 
         getContentResolver().insert(ArtistsContract.ArtistsEntry.CONTENT_URI, contentValues);
+    }
+
+    private void saveArtistInDb2(Artist artist) {
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ArtistsContract.AlbunsEntry.COLUMN_ARTIST_ID, artist.getId());
+        contentValues.put(ArtistsContract.AlbunsEntry.COLUMN_ALBUM_NAME, artist.getName());
+        contentValues.put(ArtistsContract.AlbunsEntry.COLUMN_RELEASE_DATE, artist.getType());
+        contentValues.put(ArtistsContract.AlbunsEntry.COLUMN_ALBUM_ID, artist.getId());
+
+        getContentResolver().insert(ArtistsContract.AlbunsEntry.CONTENT_URI, contentValues);
     }
 
     private void deleteArtistFromDb(Artist artist) {

@@ -100,6 +100,7 @@
             android:authorities="tracker.album.com.br.albumtracker"
             android:name="tracker.album.com.br.albumtracker.providers.ArtistContentProvider"
             android:exported="false" />
+
     </application>
 
 </manifest>

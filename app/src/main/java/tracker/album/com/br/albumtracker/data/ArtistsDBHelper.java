@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class ArtistsDBHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "artists.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 3;
 
     public ArtistsDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -20,11 +20,13 @@ public class ArtistsDBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(ArtistsContract.ArtistsEntry.CREATE_TABLE_ARTISTS);
+        sqLiteDatabase.execSQL(ArtistsContract.AlbunsEntry.CREATE_TABLE_ALBUNS);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ArtistsContract.ArtistsEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + ArtistsContract.AlbunsEntry.TABLE_NAME);
         onCreate(sqLiteDatabase);
     }
 }

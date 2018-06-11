@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/albumtrackr.iml" filepath="$PROJECT_DIR$/albumtrackr.iml" />
-      <module fileurl="file://C:\Users\leonardo.filho\Documents\android\albumtrackr\albumtrackr\albumtrackr-master.iml" filepath="C:\Users\leonardo.filho\Documents\android\albumtrackr\albumtrackr\albumtrackr-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/albumtrackr-master.iml" filepath="$PROJECT_DIR$/albumtrackr-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../../../leonardo.filho/Documents/android/albumtrackr/albumtrackr/albumtrackr-master.iml" filepath="$PROJECT_DIR$/../../../../leonardo.filho/Documents/android/albumtrackr/albumtrackr/albumtrackr-master.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

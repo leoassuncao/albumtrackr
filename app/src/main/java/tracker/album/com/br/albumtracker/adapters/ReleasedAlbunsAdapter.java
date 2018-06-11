@@ -115,12 +115,19 @@ public class ReleasedAlbunsAdapter extends RecyclerView.Adapter<ReleasedAlbunsAd
                     Log.v("status code: ", statusCode.toString());
                     final AlbumLastFm album = response.body();
                     ArrayList<AlbumImage> images = new ArrayList<>();
-
                         images = album.getArtist().getImage();
-                        Picasso.with(holder.album_photo.getContext())
-                                .load(images.get(3).getText())
-                                .placeholder(R.drawable.acdc)
-                                .into(holder.album_photo);
+                        if (images.get(3).getText().isEmpty()) {
+                            Picasso.with(holder.album_photo.getContext())
+                                    .load(R.drawable.acdc)
+                                    .placeholder(R.drawable.acdc)
+                                    .into(holder.album_photo);
+                        } else {
+                            Picasso.with(holder.album_photo.getContext())
+                                    .load(images.get(3).getText())
+                                    .placeholder(R.drawable.acdc)
+                                    .into(holder.album_photo);
+                        }
+
 
                 }
 

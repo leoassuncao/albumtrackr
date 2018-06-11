@@ -51,6 +51,7 @@ public interface ServiceApi {
             @Query("format") String fmt);
 
     //ALBUM IMAGES FROM LASTFM
+
     //2.0/?method=album.getinfo&api_key=966f26ded204772262fdb5bf66767c4b&mbid=078f2236-685f-4659-a5cf-c50e412445ec&format=json
     @GET("2.0/")
     Call<AlbumLastFm> getAlbumImage(
@@ -59,6 +60,10 @@ public interface ServiceApi {
             @Query("mbid") String mbid,
             @Query("format") String fmt);
 }
+
+
+//get albuns by tooday date
+//http://musicbrainz.org/ws/2/release/?query=date:2018-05-05
 
 
 

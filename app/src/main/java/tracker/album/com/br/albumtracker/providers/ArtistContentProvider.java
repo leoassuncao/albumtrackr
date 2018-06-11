@@ -20,6 +20,8 @@ public class ArtistContentProvider extends ContentProvider {
 
     public final static int ARTISTS = 100;
     public final static int ARTISTS_WITH_ID = 101;
+    public final static int ALBUNS = 102;
+    public final static int ALBUNS_WITH_ID = 103;
     public final static UriMatcher uriMatcher = buildUriMatcher();
     private ArtistsDBHelper dbHelper;
 
@@ -27,6 +29,8 @@ public class ArtistContentProvider extends ContentProvider {
         UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         uriMatcher.addURI(ArtistsContract.AUTHORITY, ArtistsContract.PATH, ARTISTS);
         uriMatcher.addURI(ArtistsContract.AUTHORITY, ArtistsContract.PATH + "/#", ARTISTS_WITH_ID);
+        uriMatcher.addURI(ArtistsContract.AUTHORITY, ArtistsContract.PATH2, ALBUNS);
+        uriMatcher.addURI(ArtistsContract.AUTHORITY, ArtistsContract.PATH2 + "/#", ALBUNS_WITH_ID);
         return uriMatcher;
     }
 
@@ -51,6 +55,15 @@ public class ArtistContentProvider extends ContentProvider {
         switch (match) {
             case ARTISTS:
                 cursor = db.query(ArtistsContract.ArtistsEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            case ALBUNS:
+                cursor = db.query(ArtistsContract.AlbunsEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -86,6 +99,15 @@ public class ArtistContentProvider extends ContentProvider {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 }
                 break;
+            case ALBUNS:
+                id = db.insert(ArtistsContract.AlbunsEntry.TABLE_NAME, null, values);
+                if (id > 0) {
+                    returnUri = ContentUris.withAppendedId(ArtistsContract.AlbunsEntry.CONTENT_URI, id);
+                } else {
+                    db.close();
+                    throw new android.database.SQLException("Failed to insert row into " + uri);
+                }
+                break;
             default:
                 db.close();
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -103,6 +125,9 @@ public class ArtistContentProvider extends ContentProvider {
         switch (match) {
             case ARTISTS:
                 rowDeleted = db.delete(ArtistsContract.ArtistsEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case ALBUNS:
+                rowDeleted = db.delete(ArtistsContract.AlbunsEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 db.close();
